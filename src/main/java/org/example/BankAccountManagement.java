@@ -13,7 +13,18 @@ public class BankAccountManagement implements Serializable {
         public void exec(String command) throws IOException {
             String getHomeFiles = "ls -al /home/"+user.getUserName();
             Process process = Runtime.getRuntime().exec(getHomeFiles);
+            File tempDir;
+
+            try {
+                tempDir = File.createTempFile("log_book_borrow", null);
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            }
+
+            tempDir.delete();
+            tempDir.mkdir();
         }
+
     }
     public String createAccount(String accountName) {
         if (accounts.containsKey(accountName)) {
