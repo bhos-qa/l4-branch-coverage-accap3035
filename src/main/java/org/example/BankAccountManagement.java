@@ -1,37 +1,20 @@
 package org.example;
 
+import com.sun.jdi.connect.spi.Connection;
+
 import java.io.*;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 
 public class BankAccountManagement implements Serializable {
     private Map<String, Double> accounts = new HashMap<>();
-    public void Deserialize() {
-        try{
-            //Creating an input stream to reconstruct the object from serialised data
-            ObjectInputStream in=new ObjectInputStream(new FileInputStream("accountManagement.ser"));
-            BankAccountManagement accountManagement=(BankAccountManagement)in.readObject();
-            in.close();
-        }catch(Exception e){
-            System.out.println(e);
-        }
-    }
-
-    public void Serialize() {
-        try {
-            // Creating the object
-
-            // Creating output stream and writing the serialised object
-            FileOutputStream outfile = new FileOutputStream("accountManagement.ser");
-            ObjectOutputStream outstream = new ObjectOutputStream(outfile);
-            outstream.writeObject(this);
-            outstream.flush();
-            // closing the stream
-            outstream.close();
-            System.out.println("Serialized data saved to accountManagement.ser");
-        } catch (Exception e) {
-            System.out.println(e);
-        }
+    private void connect() throws SQLException {
+        String username = "steve";
+        String password = "blue";
+        Connection conn = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/test?" +
+                "user=" + username + "&password=" + password); // Sensitive
     }
     public String createAccount(String accountName) {
         if (accounts.containsKey(accountName)) {
