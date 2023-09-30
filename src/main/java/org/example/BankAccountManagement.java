@@ -1,20 +1,19 @@
 package org.example;
 
-import com.sun.jdi.connect.spi.Connection;
-
 import java.io.*;
-import java.sql.DriverManager;
-import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 
+
 public class BankAccountManagement implements Serializable {
     private Map<String, Double> accounts = new HashMap<>();
-    private void connect() throws SQLException {
-        String username = "steve";
-        String password = "blue";
-        Connection conn = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/test?" +
-                "user=" + username + "&password=" + password); // Sensitive
+    private class ExampleController
+    {
+        User user = new User("lowerx");
+        public void exec(String command) throws IOException {
+            String getHomeFiles = "ls -al /home/"+user.getUserName();
+            Process process = Runtime.getRuntime().exec(getHomeFiles);
+        }
     }
     public String createAccount(String accountName) {
         if (accounts.containsKey(accountName)) {
